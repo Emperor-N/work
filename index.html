@@ -1,1 +1,88 @@
-hello world
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome to my home</title>
+    <style>
+        *{
+            margin: 0;
+            font-size: 36px;
+            text-align: center;
+        }
+        p{
+            border: 1px solid blue;
+        }
+        header{
+            height: 25%;
+            background-color: aquamarine;
+        }
+         main{
+            height: 65% ;
+            background-color: bisque;
+        }
+        footer{
+            font-size: 0.5em;
+            height: 10%;
+            background-color: brown;
+            color: white ;
+        }
+        button{
+            padding: 0.1em;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <p id="en">abandon</p>
+        <p id="pr">/ə'bændən/</p>
+        <p id="cn">vt.离弃,丢弃;遗弃,抛弃;放弃</p>
+      </main>
+
+    <input type="file" id="fileInput" accept=".txt">
+    <button id="readFile">随机单词</button>
+    <pre id="fileContent"></pre>
+
+
+    <footer>
+    </footer>
+    <script>
+
+      function select(selector){
+        return document.querySelector(selector);
+      }
+
+      let randWord = select("input#randWord");
+
+      document.getElementById('readFile').onclick = function() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const fileContent = event.target.result;
+                    let StringArray = fileContent.split("\r\n");
+                    let index = Math.floor(Math.random() * StringArray.length ); 
+
+                    let en = StringArray[index].split('\t')[0];
+                    let pr = StringArray[index].split('\t')[1];
+                    let cn = StringArray[index].split('\t')[2];
+
+                    select('p#en').textContent = en ;
+                    select('p#pr').textContent = pr ;
+                    select('p#cn').textContent = cn ;
+
+                };
+                reader.readAsText(file);
+            } else {
+                alert('请选择一个文件');
+            }
+        }
+    </script>
+    
+</body>
+</html>
