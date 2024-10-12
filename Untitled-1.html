@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome to my home</title>
+    <style>
+        * {
+            margin: 0;
+            font-size: 36px;
+            text-align: center;
+        }
+        p {
+            border: 1px solid blue;
+            padding: 10px; /* 添加内边距以改善可读性 */
+            border-radius: 5px; /* 添加圆角 */
+        }
+        header {
+            height: 25%;
+            background-color: aquamarine;
+            display: flex; /* 使用flexbox对齐内容 */
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+        }
+        main {
+            height: 65%;
+            background-color: bisque;
+            display: flex; /* 使用flexbox布局 */
+            flex-direction: column; /* 垂直排列 */
+            justify-content: center; /* 垂直居中 */
+            align-items: center; /* 水平居中 */
+        }
+        footer {
+            font-size: 0.5em;
+            height: 10%;
+            background-color: brown;
+            color: white;
+            display: flex; /* 使用flexbox对齐内容 */
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+        }
+        button {
+            padding: 0.5em; /* 增加按钮内边距 */
+            font-size: 24px; /* 调整字体大小 */
+            cursor: pointer; /* 鼠标悬停时显示手型 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>欢迎来到我的家</h1> <!-- 添加标题 -->
+    </header>
+    <main>
+        <p id="en">abandon</p>
+        <p id="pr">/ə'bændən/</p>
+        <p id="cn">vt.离弃,丢弃;遗弃,抛弃;放弃</p>
+    </main>
+
+    <input type="file" id="fileInput" accept=".txt">
+    <button id="readFile">随机单词</button>
+    <pre id="fileContent"></pre>
+
+    <footer>
+        <p>© 2023 我的词汇应用</p> <!-- 添加页脚内容 -->
+    </footer>
+    <script>
+        function select(selector) {
+            return document.querySelector(selector);
+        }
+
+        document.getElementById('readFile').onclick = function() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const fileContent = event.target.result;
+                    let StringArray = fileContent.split("\r\n");
+                    let index = Math.floor(Math.random() * StringArray.length); 
+
+                    let [en, pr, cn] = StringArray[index].split('\t'); // 使用解构赋值
+
+                    select('p#en').textContent = en;
+                    select('p#pr').textContent = pr;
+                    select('p#cn').textContent = cn;
+                };
+                reader.readAsText(file);
+            } else {
+                alert('请选择一个文件');
+            }
+        }
+    </script>
+</body>
+</html>
